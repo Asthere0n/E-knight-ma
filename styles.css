@@ -1,0 +1,95 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#layout{
+    background-color: lightgray;
+    height: 100dvh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 60px 1fr;
+    grid-template-areas:
+    "header header"
+    "content log-display "
+}
+
+#header{
+    grid-area: header;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(87, 87, 87);
+    padding-block: 10px;
+    h1{
+        font-size: 4rem;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        color: white;
+        text-shadow: 2px 2px 1px gray;
+    }
+}
+
+#content{
+    grid-area: content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+#chessBoard{
+    display: grid;
+    grid-template-columns: repeat(8, 75px);
+    grid-template-rows: repeat(8, 75px);
+    border: 3px solid black;    
+}
+.square{
+    border: 3px solid black;
+    flex-grow: 1;
+}
+.square:hover{
+    background-color: rgb(185, 185, 185);
+}
+.white{
+    background-color: white;
+}
+.black{
+    background-color: rgb(87, 87, 87);
+}
+.knight {
+    background-image: url(./img/knight.png);
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#log-display{
+    grid-area: log-display;
+    background-color: rgb(255, 255, 255);
+    margin: 20px 60px 20px 20px;
+    padding: 30px;
+    border-radius: 2rem;
+    box-shadow: 2px 2px 5px gray;
+    display: flex;
+    flex-direction: column;
+    p{
+        font-size: 1.5rem;
+        margin: 10px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+}
+#log{
+    flex-grow: 1;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 1px 1px 4px gray inset;
+}
+
+#footer{
+    grid-area: footer;
+}
