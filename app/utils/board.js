@@ -19,14 +19,17 @@ class chessBoard {
     return this.board;
   }
 
+
+  // This method will return the node located in the X, Y position of the board
   get(X, Y) {
     return this.board[Y][X]
   }
 
-  isMovePosible(newLocation) {
-    if (newLocation[0] < 0 || newLocation[1] < 0 ||
-      newLocation[0] > this.currentBoard.board[0].lenght ||
-      newLocation[1] > this.currentBoard.board.lenght) {
+  // This method will check if a move is possible before attempting it
+  isMovePosible(target) {
+    if (target[0] < 0 || target[1] < 0 ||
+      target[0] > this.currentBoard.board[0].lenght ||
+      target[1] > this.currentBoard.board.lenght) {
       return false
     }
     return true
