@@ -1,6 +1,6 @@
 import Square from "./square";
 
-class chessBoard {
+export default class chessBoard {
   constructor(height = 8, width = 8) {
     this.board = [];
     this.height = height
