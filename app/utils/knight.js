@@ -26,5 +26,10 @@ export default class Knight {
 
     }
 
-
+    startRandomPosition(){
+        this.movesQueue = []
+        this.initialLocation = currentBoard.getRandomPosition()
+        this.Xcoord = this.initialLocation.coordenates[0]
+        this.Ycoord = this.initialLocation.coordenates[1]
+    }
 }

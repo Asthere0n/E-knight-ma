@@ -35,4 +35,11 @@ class chessBoard {
     return true
   }
 
+  getRandomPosition(){
+    return this.get(
+      Math.random * this.board[0].lenght,
+      Math.random * this.board.length
+    )
+  }
+
 }
