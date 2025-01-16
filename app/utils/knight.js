@@ -6,6 +6,9 @@ export default class Knight {
         this.movesQueue = []
     }
 
+
+    // This method finds if there's a path to the target location using the
+    // knight
     findTarget(targetlocation) {
         let currentLocation = this.initialLocation
 
@@ -14,18 +17,23 @@ export default class Knight {
             if (currentBoard.isMovePosible(node)) {
                 currentLocation = node
             
+        // If the location is found will return the target node
                 if (currentLocation == targetlocation) {
                     return currentLocation.coordenates
+        // If isn't found yet will add the next posible moves to the movesQueue
                 } else {
                     this.movesQueue.concat(currentLocation.neightbours)
                 }
             }
-
             currentLocation = this.movesQueue.shift()
         });
 
+        // If no path is found will return null
+        return null
     }
 
+    // This method will restart the stat of the knight into a random position
+    // within the board limits
     startRandomPosition(){
         this.movesQueue = []
         this.initialLocation = currentBoard.getRandomPosition()

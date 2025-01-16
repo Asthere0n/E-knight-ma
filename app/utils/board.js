@@ -35,6 +35,7 @@ export default class chessBoard {
     return true
   }
 
+  // This method will return a random valid position within the board
   getRandomPosition(){
     return this.get(
       Math.random * this.board[0].lenght,
