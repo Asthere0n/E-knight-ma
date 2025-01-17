@@ -1,4 +1,4 @@
-import Square from "./square";
+import Square from "./square.js";
 
 export default class chessBoard {
   constructor(height = 8, width = 8) {
@@ -12,24 +12,29 @@ export default class chessBoard {
     for (let i = 0; i < this.height; i++) {
       let row = [];
       for (let j = 0; j < this.width; j++) {
-        row.push(new Square(j, this.board.length));
+        const newSquare = new Square(j, this.board.length)
+        row.push(newSquare);
       }
       this.board.push(row);
+      // console.log(this.board)
     }
     return this.board;
   }
 
 
   // This method will return the node located in the X, Y position of the board
-  get(X, Y) {
-    return this.board[Y][X]
+  get(position) {
+    const Ycoord = position[1]
+    const Xcoord =  position[0]
+    console.log(`Position: ${position}`)
+    return this.board[Ycoord][Xcoord]
   }
 
   // This method will check if a move is possible before attempting it
-  isMovePosible(target) {
+  isMovePossible(target) {
     if (target[0] < 0 || target[1] < 0 ||
-      target[0] > this.currentBoard.board[0].lenght ||
-      target[1] > this.currentBoard.board.lenght) {
+      target[0] > this.board[0].length ||
+      target[1] > this.board.length) {
       return false
     }
     return true
@@ -37,10 +42,11 @@ export default class chessBoard {
 
   // This method will return a random valid position within the board
   getRandomPosition(){
-    return this.get(
-      Math.random * this.board[0].lenght,
-      Math.random * this.board.length
-    )
+    // Generate a random position within the board
+    const randomPosition = [Math.floor(Math.random() * this.board[0].length),
+    Math.floor(Math.random() * this.board.length)]
+    console.log(randomPosition)
+    return this.get(randomPosition)
   }
 
 }

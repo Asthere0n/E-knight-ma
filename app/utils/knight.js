@@ -1,16 +1,20 @@
 export default class Knight {
     constructor(currentBoard, location) {
+        this.currentBoard = currentBoard
+        console.log(`New Game created in ${location}`)
+
         this.Xcoord = location[0]
         this.Ycoord = location[1]
-        this.initialLocation = currentBoard.get[this.Xcoord][this.Ycoord];
+
         this.movesQueue = []
+        this.position = [this.Xcoord, this.Ycoord]
     }
 
 
     // This method finds if there's a path to the target location using the
     // knight
     findTarget(targetlocation) {
-        let currentLocation = this.initialLocation
+        let currentLocation = [this.Xcoord, this.Ycoord]
 
         this.movesQueue.forEach(node => {
 
@@ -29,15 +33,6 @@ export default class Knight {
         });
 
         // If no path is found will return null
-        return null
-    }
-
-    // This method will restart the stat of the knight into a random position
-    // within the board limits
-    startRandomPosition(){
-        this.movesQueue = []
-        this.initialLocation = currentBoard.getRandomPosition()
-        this.Xcoord = this.initialLocation.coordenates[0]
-        this.Ycoord = this.initialLocation.coordenates[1]
-    }
+        throw new Error ("Path not found")
+    }  
 }
