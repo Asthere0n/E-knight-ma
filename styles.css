@@ -73,13 +73,22 @@
 .black{
     background-color: rgb(87, 87, 87);
 }
-.posible{
+.possible{
+    background-color: rgba(255, 255, 0, 0.5);
+}
+.possible:hover{
     background-color: yellow;
 }
 .target{
     background-color: green;
 }
-.knight {
+.target:hover{
+    background-color: yellowgreen;
+}
+.Knight {
+    z-index: 2;
+    height: 100%;
+    width: 100%;
     background-image: url(./img/knight.png);
     background-size: 75%;
     background-repeat: no-repeat;
