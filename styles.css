@@ -23,6 +23,8 @@
     align-items: center;
     padding-block: 10px;
     h1{
+        flex-grow: 1;
+        text-align: center;
         font-size: 4rem;
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         color: black;
@@ -32,6 +34,16 @@
             text-shadow: 2px 2px 1px gray;
         }
     }
+}
+#startButton{
+    height: 4rem;
+    width: 10rem;
+    font-size: 2rem;
+    background-color: green;
+    color: white;
+    border-radius: 12px;
+    margin-inline: 30px;
+    cursor: pointer;
 }
 
 #content{
@@ -60,6 +72,12 @@
 }
 .black{
     background-color: rgb(87, 87, 87);
+}
+.posible{
+    background-color: yellow;
+}
+.target{
+    background-color: green;
 }
 .knight {
     background-image: url(./img/knight.png);
