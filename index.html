@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knight move</title>
+    <title>e-Knight-ma</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="layout">
         <div id="header">
-            <h1>Knight Moves</h1>
+            <h1>e<span>Knight</span>ma</h1>
         </div>
 
         <div id="content">
@@ -89,12 +89,26 @@
 
         </div>
 
-        <div id="log-display">
-            <p>Select a square to calculate how many moves the Knight has to move:</p>
-            <div id="log">
-                
+        <div id="display">
+            <div id="infoPanel">
+                <div class="counter" id="moves-left">
+                    <span>0</span>
+                </div>
+                <div class="counter" id="timer">
+                    <span>0</span>
+                </div>
+                <span class="infoLabel">time</span>
+                <span class="infoLabel">moves</span>
+            </div>
+
+            <div id="log-box">
+                <p>Previous moves:</p>
+                <div id="log">
+                    <p>Lorem ipsum</p>
+                </div>
             </div>
         </div>
     </div>
+    <script type="module" src="app/app.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 60px 1fr;
+    grid-template-rows: 76px 1fr;
     grid-template-areas:
     "header header"
     "content log-display "
@@ -21,13 +21,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(87, 87, 87);
     padding-block: 10px;
     h1{
         font-size: 4rem;
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        color: white;
-        text-shadow: 2px 2px 1px gray;
+        color: black;
+        span{
+            color: white;
+            margin-inline: 8px;
+            text-shadow: 2px 2px 1px gray;
+        }
     }
 }
 
@@ -50,6 +53,7 @@
 }
 .square:hover{
     background-color: rgb(185, 185, 185);
+    cursor: pointer;
 }
 .white{
     background-color: white;
@@ -64,7 +68,7 @@
     background-position: center;
 }
 
-#log-display{
+#display{
     grid-area: log-display;
     background-color: rgb(255, 255, 255);
     margin: 20px 60px 20px 20px;
@@ -73,21 +77,47 @@
     box-shadow: 2px 2px 5px gray;
     display: flex;
     flex-direction: column;
-    p{
-        font-size: 1.5rem;
-        margin: 10px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-    }
 }
-#log{
+
+#infoPanel{
+    height: 10rem;
+    display: grid;
+    grid-template-rows: 1fr 12px;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+.infoLabel{
+    font-size: 2rem;
+}
+.counter{
+    margin-inline: 15px;
+    text-align: center;
+    box-shadow: 1px 1px 4px gray inset;
+    border-radius: 1rem;
+    align-content: center;
+    font-size: 8rem;
+}
+
+#log-box{
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     margin: 10px;
+    margin-top: 28px;
     padding: 10px;
     border-radius: 1rem;
     background-color: white;
     box-shadow: 1px 1px 4px gray inset;
+    p{
+        font-size: 3 rem;
+        margin: 10px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    #log{
+        flex-grow: 1;
+    }
 }
 
 #footer{
