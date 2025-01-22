@@ -45,6 +45,10 @@
     margin-inline: 30px;
     cursor: pointer;
 }
+.GAME-ON{
+    background-color: red;
+    content: "Quit";
+}
 
 #content{
     grid-area: content;

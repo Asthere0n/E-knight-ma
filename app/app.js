@@ -1,11 +1,13 @@
-import chessBoard from "./utils/board.js";
-import Knight from "./utils/knight.js";
+import {gameEngine} from "./utils/game-engine.js" 
 
-// Start the game
-const newGame = new chessBoard
-newGame.createBoard()
-const Piece = new Knight (newGame, [4,4])
+// Load the game
+const Game = new gameEngine
 
-console.log(Piece.position)
-console.log(Piece.findTarget([5,2]))
-
+//Start Button
+startButton.addEventListener('click', ()=>{
+    if (Game.State === "GAME"){
+        Game.State = "OFF"
+    } else {
+        Game.State = "GAME"
+    }
+})
