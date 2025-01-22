@@ -13,7 +13,7 @@ export default class gameEngine {
             // State used when you first access the web. No game is launched yet
             case parameter == 'OFF':
                 console.log ("Game is OFF")
-                Timer.in
+                Timer.innerHTML += 20  
 
                 break
 
