@@ -5,7 +5,6 @@ export default class Knight {
         this.Xcoord = location[0]
         this.Ycoord = location[1]
 
-        this.movesQueue = []
         this.position = [this.Xcoord, this.Ycoord]
     }
 
@@ -14,31 +13,35 @@ export default class Knight {
     // knight
     findTarget(targetlocation) {
 
+        let visited = new Set()
         let currentLocation = [this.Xcoord, this.Ycoord]
-        this.movesQueue.push(currentLocation)
+        let queue = [[currentLocation, 0]]
+        visited.add(currentLocation.toString())
 
-        while(this.movesQueue.length>0){
-            let newPosition = this.currentBoard.get(this.movesQueue[0])
-            console.log(`Now trying: ${newPosition.coordenates}`)
-            if (this.currentBoard.isMovePossible(newPosition.coordenates)) {
-                console.log(`Is ${newPosition.coordenates} equal to ${targetlocation}?`)
-                // If the location is found will return the target node
-                if (newPosition.coordenates[0] === targetlocation[0] && newPosition.coordenates[1] === targetlocation[1]) {
-                    console.log('Success!')
-                    return newPosition
-                    // If isn't found yet will add the next posible moves to the movesQueue
-                } else {
-                    console.log("No")
-                    newPosition.adyacent.forEach(adyacentLocation => {
-                        this.movesQueue.push(adyacentLocation)
-                    });
+        while (queue.length > 0) {
+            let [currentPosition, distance] = queue.shift()
+            let [currentX, currentY] = currentPosition
+            console.log(`Now trying: ${currentX}, ${currentY}`)
+
+            // Check if the current position is the target location
+            if (currentX === targetlocation[0] && currentY === targetlocation[1]) {
+                console.log('Success! ${currentX}, ${currentY} found in ${distance} moves')
+                return distance
+            }
+
+            // Get the current square
+            let currentSquare = this.currentBoard.get(currentPosition);
+
+            // Enquere the adyacent squares
+            for (let adj of currentSquare.adyacent) {
+                if (this.currentBoard.isMovePossible(adj) && !visited.has(adj.toString())) {
+                    queue.push([adj, moveCount + 1]);
+                    visited.add(adj.toString());
                 }
-    
-                newPosition = this.movesQueue.shift()
             }
         }
 
-        // If no path is found will return null
-        throw new Error("Path not found")
+        // If no path is found will return -1
+        return -1
     }
 }
