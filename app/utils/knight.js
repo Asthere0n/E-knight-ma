@@ -33,8 +33,9 @@ export class Knight {
             this.position = [this.Xcoord, this.Ycoord] 
 
             // We update the board displayed in the browser
-            knight.parentNode.removeChild(knight)
-            this.currentBoard.get(newPosition).appendChild(knight)
+            const newKnight = knight.parentNode.removeChild(knight)
+            console.log(`Moving to ${newKnight}`)
+            this.currentBoard.get(newPosition).appendChild(newKnight)
         }
 
         // We update the adyacents
