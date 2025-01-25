@@ -9,6 +9,9 @@ export class Knight {
 
         this.position = [this.Xcoord, this.Ycoord]
         console.log(`Knight created at ${this.Xcoord}, ${this.Ycoord}`)
+
+        this.previousLocations = []
+        this.move(location)
     }
 
     move(newPosition) {
@@ -24,10 +27,48 @@ export class Knight {
         // We update the knight's position in the board
         const knight = Knightpiece
         if (knight && knight.parentNode) {
+            this.previousLocations.push(this.position)
+            this.Xcoord = newPosition[0]
+            this.Ycoord = newPosition[1]
+            this.position = [this.Xcoord, this.Ycoord] 
+
+            // We update the board displayed in the browser
             knight.parentNode.removeChild(knight)
+            this.currentBoard.get(newPosition).appendChild(knight)
         }
 
-        this.currentBoard.get(newPosition).appendChild(knight)
+        // We update the adyacents
+        this.updateAdyacents(this.currentBoard.get(position))
+    }
+
+    updateAdyacents(square){
+        // We clear the previous adyacents
+        const oldAdyacent = document.getElementsByClassName('possible')
+        oldAdyacent.forEach((adj) => {
+            adj.classList.remove('possible')
+        })
+
+        // We calculate the new adyacents
+        let [X, Y] = square.position
+        let adyacents = [
+            [X + 2, Y + 1],
+            [X + 2, Y - 1],
+            [X - 2, Y + 1],
+            [X - 2, Y - 1],
+            [X + 1, Y + 2],
+            [X + 1, Y - 2],
+            [X - 1, Y + 2],
+            [X - 1, Y - 2]
+        ]
+
+        // We filter the adyacents to only include the valid ones
+        let validAdyacents = adyacents.filter((adj) => this.currentBoard.isMovePossible(adj))
+        square.adyacent = validAdyacents
+
+        // We update the adyacents in the board
+        square.adyacent.forEach((adj) => {
+            this.currentBoard.get(adj).classList.add('possible')
+        })
     }
 
     // This method finds if there's a path to the target location using the
