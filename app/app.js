@@ -1,13 +1,14 @@
 import {gameEngine} from "./utils/game-engine.js" 
+import {startButton} from "./utils/addresses.js"
 
 // Load the game
-const Game = new gameEngine
+const Game = new gameEngine()
 
 //Start Button
 startButton.addEventListener('click', ()=>{
-    if (Game.State === "GAME"){
-        Game.State = "OFF"
+    if (Game.state === "GAME"){
+        Game.state = "OFF"
     } else {
-        Game.State = "GAME"
+        Game.state = "GAME"
     }
 })

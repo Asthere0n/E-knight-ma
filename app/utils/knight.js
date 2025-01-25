@@ -1,4 +1,4 @@
-export default class Knight {
+export class Knight {
     constructor(currentBoard, location) {
         this.currentBoard = currentBoard
 
