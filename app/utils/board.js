@@ -31,10 +31,10 @@ export class chessBoard {
 
   // This method will check if a move is possible before attempting it
   isMovePossible(target) {
-    console.log(`Is posible to move to ${target}?`)
-    if (target[0] < 0 || target[1] < 0 ||
-      target[0] > this.board[0].length ||
-      target[1] > this.board.length) {
+    let [currentX, currentY] = target
+    if (currentX < 0 || currentX >= this.width ||
+      currentY < 0 || currentY >= this.height) {
+        console.warn(`blocked: ${currentX}, ${currentY}`)
         return false
       }
     return true
@@ -43,10 +43,10 @@ export class chessBoard {
   // This method will return a random valid position within the board
   getRandomPosition(){
     // Generate a random position within the board
-    const randomPosition = [Math.floor(Math.random() * this.board[0].length),
-    Math.floor(Math.random() * this.board.length)]
-    // console.log(randomPosition)
-    return this.get(randomPosition)
+    const randomPosition = [Math.floor(Math.random() * this.width),
+    Math.floor(Math.random() * this.height)]
+    //console.log(randomPosition)
+    return randomPosition 
   }
 
 }

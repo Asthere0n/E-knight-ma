@@ -6,6 +6,7 @@ export class Knight {
         this.Ycoord = location[1]
 
         this.position = [this.Xcoord, this.Ycoord]
+        console.log(`Knight created at ${this.Xcoord}, ${this.Ycoord}`)
     }
 
 
@@ -13,9 +14,9 @@ export class Knight {
     // knight
     findTarget(targetlocation) {
 
-        let visited = new Set()
         let currentLocation = [this.Xcoord, this.Ycoord]
         let queue = [[currentLocation, 0]]
+        let visited = new Set()
         visited.add(currentLocation.toString())
 
         while (queue.length > 0) {
@@ -25,7 +26,7 @@ export class Knight {
 
             // Check if the current position is the target location
             if (currentX === targetlocation[0] && currentY === targetlocation[1]) {
-                console.log('Success! ${currentX}, ${currentY} found in ${distance} moves')
+                console.log(`Success! ${currentX}, ${currentY} found in ${distance} moves`)
                 return distance
             }
 
@@ -35,7 +36,8 @@ export class Knight {
             // Enquere the adyacent squares
             for (let adj of currentSquare.adyacent) {
                 if (this.currentBoard.isMovePossible(adj) && !visited.has(adj.toString())) {
-                    queue.push([adj, moveCount + 1]);
+                    //console.log(`Adding to queue: ${adj}`)
+                    queue.push([adj, distance + 1]);
                     visited.add(adj.toString());
                 }
             }
@@ -43,5 +45,13 @@ export class Knight {
 
         // If no path is found will return -1
         return -1
+    }
+
+    selectNewTarget (){
+        let newTarget = this.currentBoard.getRandomPosition()
+        if (newTarget === this.position){
+            this.selectNewTarget()
+        }
+        return newTarget
     }
 }

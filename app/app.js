@@ -7,8 +7,8 @@ const Game = new gameEngine()
 //Start Button
 startButton.addEventListener('click', ()=>{
     if (Game.state === "GAME"){
-        Game.state = "OFF"
+        Game.changeState("OFF")
     } else {
-        Game.state = "GAME"
+        Game.changeState("GAME")
     }
 })
