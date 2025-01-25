@@ -1,3 +1,5 @@
+import { Knightpiece } from "./addresses.js"
+
 export class Knight {
     constructor(currentBoard, location) {
         this.currentBoard = currentBoard
@@ -9,6 +11,24 @@ export class Knight {
         console.log(`Knight created at ${this.Xcoord}, ${this.Ycoord}`)
     }
 
+    move(newPosition) {
+        if (!this.currentBoard.isMovePossible(newPosition)){
+            console.warn(`Move to ${newPosition} is not possible`)
+            return
+        }
+
+        // We change the knight's position in the board
+        [this.Xcoord, this.Ycoord] = newPosition
+        console.log(`Knight moved to ${this.Xcoord}, ${this.Ycoord}`)
+
+        // We update the knight's position in the board
+        const knight = Knightpiece
+        if (knight && knight.parentNode) {
+            knight.parentNode.removeChild(knight)
+        }
+
+        this.currentBoard.get(newPosition).appendChild(knight)
+    }
 
     // This method finds if there's a path to the target location using the
     // knight
@@ -47,9 +67,9 @@ export class Knight {
         return -1
     }
 
-    selectNewTarget (){
+    selectNewTarget() {
         let newTarget = this.currentBoard.getRandomPosition()
-        if (newTarget === this.position){
+        if (newTarget === this.position) {
             this.selectNewTarget()
         }
         return newTarget
