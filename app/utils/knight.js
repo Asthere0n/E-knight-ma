@@ -15,7 +15,7 @@ export class Knight {
     }
 
     move(newPosition) {
-        if (!this.currentBoard.isMovePossible(newPosition)){
+        if (!this.currentBoard.isMovePossible(newPosition)) {
             console.warn(`Move to ${newPosition} is not possible`)
             return
         }
@@ -30,7 +30,7 @@ export class Knight {
             this.previousLocations.push(this.position)
             this.Xcoord = newPosition[0]
             this.Ycoord = newPosition[1]
-            this.position = [this.Xcoord, this.Ycoord] 
+            this.position = [this.Xcoord, this.Ycoord]
 
             // We update the board displayed in the browser
             const newKnight = knight.parentNode.removeChild(knight)
@@ -39,18 +39,21 @@ export class Knight {
         }
 
         // We update the adyacents
-        this.updateAdyacents(this.currentBoard.get(this.position))
+        this.updateAdyacents(this.position)
     }
 
-    updateAdyacents(square){
+    updateAdyacents(square) {
         // We clear the previous adyacents
         const oldAdyacent = document.getElementsByClassName('possible')
-        oldAdyacent.forEach((adj) => {
-            adj.classList.remove('possible')
-        })
+        while (oldAdyacent.length > 0) {
+            oldAdyacent[0].classList.remove('possible')
+        }
 
         // We calculate the new adyacents
-        let [X, Y] = square.position
+        let X = square[0]
+        let Y = square[1]
+        console.log(`Calculating adyacents for ${X}, ${Y}`)
+
         let adyacents = [
             [X + 2, Y + 1],
             [X + 2, Y - 1],
@@ -64,11 +67,11 @@ export class Knight {
 
         // We filter the adyacents to only include the valid ones
         let validAdyacents = adyacents.filter((adj) => this.currentBoard.isMovePossible(adj))
-        square.adyacent = validAdyacents
+        console.log("Adyacents: ", validAdyacents)
 
         // We update the adyacents in the board
-        square.adyacent.forEach((adj) => {
-            this.currentBoard.get(adj).classList.add('possible')
+        validAdyacents.forEach((adj) => {
+            this.currentBoard.getHTML(adj).classList.add('possible')
         })
     }
 
