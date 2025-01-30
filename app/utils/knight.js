@@ -8,7 +8,6 @@ export class Knight {
         this.Ycoord = location[1]
 
         this.position = [this.Xcoord, this.Ycoord]
-        console.log(`Knight created at ${this.Xcoord}, ${this.Ycoord}`)
 
         this.previousLocations = []
         this.move(location)
@@ -22,7 +21,6 @@ export class Knight {
         
         // We change the knight's position in the board
         [this.Xcoord, this.Ycoord] = newPosition
-        console.log(`Knight moved to ${this.Xcoord}, ${this.Ycoord}`)
         
         // We update the knight's position in the board
         const knight = Knightpiece
@@ -34,7 +32,6 @@ export class Knight {
             
             // We update the board displayed in the browser
             const newKnight = knight.parentNode.removeChild(knight)
-            console.log(`Moving to ${newKnight}`)
             this.currentBoard.getHTML(this.position).appendChild(newKnight)
         }
         
@@ -52,7 +49,6 @@ export class Knight {
         // We calculate the new adyacents
         let X = square[0]
         let Y = square[1]
-        console.log(`Calculating adyacents for ${X}, ${Y}`)
         
         let adyacents = [
             [X + 2, Y + 1],
@@ -67,7 +63,6 @@ export class Knight {
         
         // We filter the adyacents to only include the valid ones
         let validAdyacents = adyacents.filter((adj) => this.currentBoard.isMovePossible(adj))
-        console.log("Adyacents: ", validAdyacents)
         
         // We update the adyacents in the board
         validAdyacents.forEach((adj) => {
@@ -101,7 +96,6 @@ export class Knight {
             // Enquere the adyacent squares
             for (let adj of currentSquare.adyacent) {
                 if (this.currentBoard.isMovePossible(adj) && !visited.has(adj.toString())) {
-                    //console.log(`Adding to queue: ${adj}`)
                     queue.push([adj, distance + 1]);
                     visited.add(adj.toString());
                 }
@@ -114,8 +108,8 @@ export class Knight {
 
     selectNewTarget() {
         let newTarget = this.currentBoard.getRandomPosition()
-        if (newTarget === this.position) {
-            this.selectNewTarget()
+        if (newTarget[0] == this.Xcoord && newTarget[1] == this.Ycoord) {
+            return this.selectNewTarget()
         }
         return newTarget
     }
