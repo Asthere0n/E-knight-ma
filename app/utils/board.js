@@ -29,6 +29,15 @@ export class chessBoard {
     return this.board[Ycoord][Xcoord]
   }
 
+  getHTML(location){
+    const Ycoord = location[1]
+    const Xcoord = location[0]
+
+    const Y = ["A", "B", "C", "D", "E", "F", "G", "H"]
+
+    return document.getElementById(`${Y[Ycoord]}${Xcoord + 1}`)
+  }
+
   // This method will check if a move is possible before attempting it
   isMovePossible(target) {
     let [currentX, currentY] = target
