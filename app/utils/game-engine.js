@@ -15,8 +15,14 @@ export class gameEngine {
                 this.state = 'OFF'
                 startButton.innerHTML = "Start"
                 startButton.style.backgroundColor = "Green"
+                while (document.getElementsByClassName('possible').length > 0) {
+                    document.getElementsByClassName('possible')[0].classList.remove('possible')    
+                }
+                while (document.getElementsByClassName('target').length > 0) {
+                    document.getElementsByClassName('target')[0].classList.remove('target')
+                }
                 console.log("Game is OFF")
-                Timer.innerHTML = "20"  // Timer is the ID of the timer in the HTML
+                Timer.innerHTML = "0"  // Timer is the ID of the timer in the HTML
                 break
 
             // State used when the Games ends
@@ -38,6 +44,7 @@ export class gameEngine {
                 const Target = this.knight.selectNewTarget()
                 console.log("New target is: ", Target)
                 Moves.innerHTML = this.knight.findTarget(Target)
+                this.board.getHTML(Target).classList.add('target')
                 Timer.innerHTML = 30
 
                 // Execute the move method of the knight only if the square is possible
@@ -51,11 +58,11 @@ export class gameEngine {
                             Y = parseInt(LetterCoordinate.indexOf(Y));
                             console.log(`Clicked on ${X}${Y}`)
                             this.knight.move([X, Y])
+                            Moves.innerHTML -= 1 
                         }
                     })
                 })
                 break
-
         }
     }
 }
