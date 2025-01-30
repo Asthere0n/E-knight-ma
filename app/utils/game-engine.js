@@ -40,16 +40,17 @@ export class gameEngine {
                 Moves.innerHTML = this.knight.findTarget(Target)
                 Timer.innerHTML = 30
 
+                // Execute the move method of the knight only if the square is possible
                 const squaresInHTML = document.getElementsByClassName('square')
                 Array.from(squaresInHTML).forEach((square) => {
                     square.addEventListener('click', (event) => {
                         if (event.target.classList.contains('possible')) {
-                            let X = event.target.id[1];
+                            let X = parseInt(event.target.id[1])-1;
                             let Y = event.target.id[0];
                             const LetterCoordinate = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] 
-                            Y = LetterCoordinate.indexOf(Y);
+                            Y = parseInt(LetterCoordinate.indexOf(Y));
                             console.log(`Clicked on ${X}${Y}`)
-                            this.knight.move([parseInt(X-1), parseInt(Y)])
+                            this.knight.move([X, Y])
                         }
                     })
                 })
