@@ -12,3 +12,4 @@ startButton.addEventListener('click', ()=>{
         Game.changeState("GAME")
     }
 })
+

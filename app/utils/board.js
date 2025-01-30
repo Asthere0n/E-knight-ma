@@ -43,7 +43,7 @@ export class chessBoard {
     let [currentX, currentY] = target
     if (currentX < 0 || currentX >= this.width ||
       currentY < 0 || currentY >= this.height) {
-        console.warn(`blocked: ${currentX}, ${currentY}`)
+        // console.warn(`blocked: ${currentX}, ${currentY}`)
         return false
       }
     return true

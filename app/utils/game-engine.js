@@ -4,8 +4,8 @@ import { Moves, Timer, startButton } from "./addresses.js"
 
 export class gameEngine {
     constructor() {
-                this.board = new chessBoard()
-                this.state = this.changeState("OFF")
+        this.board = new chessBoard()
+        this.state = this.changeState("OFF")
     }
 
     changeState(state) {
@@ -14,16 +14,22 @@ export class gameEngine {
             case 'OFF':
                 this.state = 'OFF'
                 startButton.innerHTML = "Start"
-                startButton.style.backgroundColor = "Green" 
+                startButton.style.backgroundColor = "Green"
                 console.log("Game is OFF")
                 Timer.innerHTML = "20"  // Timer is the ID of the timer in the HTML
+                break
+
+            // State used when the Games ends
+            case 'GAMEOVER':
+                this.state = 'GAMEOVER'
+                console.log("Game is OVER")
                 break
 
             // State of game used while the game is running
             case 'GAME':
                 this.state = 'GAME'
                 startButton.innerHTML = "QUIT"
-                startButton.style.backgroundColor = "red" 
+                startButton.style.backgroundColor = "red"
                 console.log("Game is ON")
 
                 //create a new instance of Board 
@@ -33,13 +39,22 @@ export class gameEngine {
                 console.log("New target is: ", Target)
                 Moves.innerHTML = this.knight.findTarget(Target)
                 Timer.innerHTML = 30
+
+                const squaresInHTML = document.getElementsByClassName('square')
+                Array.from(squaresInHTML).forEach((square) => {
+                    square.addEventListener('click', (event) => {
+                        if (event.target.classList.contains('possible')) {
+                            let X = event.target.id[1];
+                            let Y = event.target.id[0];
+                            const LetterCoordinate = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] 
+                            Y = LetterCoordinate.indexOf(Y);
+                            console.log(`Clicked on ${X}${Y}`)
+                            this.knight.move([parseInt(X-1), parseInt(Y)])
+                        }
+                    })
+                })
                 break
 
-            // State used when the Games ends
-            case 'GAMEOVER':
-                this.state = 'GAMEOVER'
-                console.log("Game is OVER")
-                break
         }
     }
 }
