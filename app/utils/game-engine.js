@@ -116,7 +116,7 @@ export class gameEngine {
                                 
                                 // Find how many moves are needed to reach the new target
                                 Moves.innerHTML = this.knight.findTarget(newTarget)
-                                timeIncrease(this.time)
+                                this.time += timeIncrease()
                                 Points.innerHTML = parseInt(Points.innerHTML) + 1
 
                                 // Display the new target in the board
