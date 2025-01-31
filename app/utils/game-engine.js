@@ -1,7 +1,8 @@
 import { Knight } from "./knight.js"
 import { chessBoard } from "./board.js"
-import { Moves, Timer, startButton, popup, Points } from "./addresses.js"
+import { Moves, Timer, startButton, popup, Points, PointsPopUp } from "./addresses.js"
 import { ManageLogs } from "./log.js"
+import { timeIncrease } from "./timeIncrease.js"
 
 export class gameEngine {
     constructor() {
@@ -57,6 +58,8 @@ export class gameEngine {
                 }
                 Moves.innerHTML = 0
                 Timer.innerHTML = 0
+                PointsPopUp.innerHTML = Points.innerHTML
+                Points.innerHTML = 0
                 ManageLogs.resetMoves()
                 this.Target = []
                 startButton.innerHTML = "Start"
@@ -113,7 +116,7 @@ export class gameEngine {
                                 
                                 // Find how many moves are needed to reach the new target
                                 Moves.innerHTML = this.knight.findTarget(newTarget)
-                                this.time += parseInt(Moves.innerHTML) * 2
+                                timeIncrease(this.time)
                                 Points.innerHTML = parseInt(Points.innerHTML) + 1
 
                                 // Display the new target in the board

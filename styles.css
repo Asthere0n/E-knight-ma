@@ -26,11 +26,10 @@
     justify-content: center;
     align-items: center;
     z-index: 5;
-    opacity: 0;
 }
 #popup-content{
     background-color: white;
-    height: 40%;
+    height: auto;
     width: 40%;
     padding: 20px;
     border-radius: 1rem;
@@ -45,6 +44,18 @@
         font-size: 3rem;
         font-weight: 500;
         margin: 20px;
+    }
+    #victoy-popup{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #trophy-popup{
+        width: 90px;
+        height: 85px;
+    }
+    #points-popup{
+        font-size: 120px;
     }
     p{
         font-size: 1.5rem;
