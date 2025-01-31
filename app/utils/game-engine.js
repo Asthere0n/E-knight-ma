@@ -7,6 +7,30 @@ export class gameEngine {
         this.board = new chessBoard()
         this.state = this.changeState("OFF")
         this.Target
+        this.time = 0
+    }
+
+    clock(callback) {
+        Timer.innerHTML = this.time
+
+        if (this.state == 'GAMEOVER' || this.state == 'OFF') {
+            this.time = 0
+            return
+        }
+
+        if (this.time > 0) {
+            setTimeout(() => {
+                if (this.state == 'GAMEOVER' || this.state == 'OFF') {
+                    this.time = 0
+                    return
+                }
+                this.time = this.time - 1
+                Timer.innerHTML = this.time
+                this.clock(callback)
+            }, 1000)
+        } else {
+            callback()
+        }
     }
 
     changeState(state) {
@@ -23,6 +47,7 @@ export class gameEngine {
 
             // State used when the Games ends
             case 'GAMEOVER':
+                this.state = 'GAMEOVER'
                 while (document.getElementsByClassName('possible').length > 0) {
                     document.getElementsByClassName('possible')[0].classList.remove('possible')
                 }
@@ -30,12 +55,12 @@ export class gameEngine {
                     document.getElementsByClassName('target')[0].classList.remove('target')
                 }
                 Moves.innerHTML = 0
+                Timer.innerHTML = 0
                 this.Target = []
                 startButton.innerHTML = "Start"
                 startButton.style.backgroundColor = "Green"
                 popup.style.display = "flex"
 
-                this.state = 'GAMEOVER'
                 console.log("Game is OVER")
                 break
 
@@ -52,9 +77,12 @@ export class gameEngine {
                 this.knight = new Knight(this.board, this.board.getRandomPosition())
                 this.Target = this.knight.selectNewTarget()
                 console.log("New target is: ", this.Target)
+
+                // Set the Moves and Timer displays work
                 Moves.innerHTML = this.knight.findTarget(this.Target)
                 this.board.getHTML(this.Target).classList.add('target')
-                Timer.innerHTML = 30
+                this.time = 10
+                this.clock(() => { this.changeState('GAMEOVER') })
 
                 // Execute the move method of the knight only if the square is possible
                 const squaresInHTML = document.getElementsByClassName('square')
@@ -72,14 +100,15 @@ export class gameEngine {
                             if (this.knight.Xcoord === this.Target[0] && this.knight.Ycoord === this.Target[1]) {
                                 // Select a new target
                                 const newTarget = this.knight.selectNewTarget()
-                                console.log("New target is: ", newTarget)
                                 this.Target = newTarget
-
+                                console.log(`New target is: ${newTarget} and time is: ${this.time} seconds`)
+                                
                                 // Remove the target class from the previous target
                                 document.getElementsByClassName('target')[0].classList.remove('target')
-
+                                
                                 // Find how many moves are needed to reach the new target
                                 Moves.innerHTML = this.knight.findTarget(newTarget)
+                                this.time += parseInt(Moves.innerHTML) * 3
 
                                 // Display the new target in the board
                                 this.board.getHTML(newTarget).classList.add('target')
