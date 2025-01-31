@@ -1,6 +1,7 @@
 import { Knight } from "./knight.js"
 import { chessBoard } from "./board.js"
-import { Moves, Timer, startButton, popup } from "./addresses.js"
+import { Moves, Timer, startButton, popup, Points } from "./addresses.js"
+import { ManageLogs } from "./log.js"
 
 export class gameEngine {
     constructor() {
@@ -56,11 +57,12 @@ export class gameEngine {
                 }
                 Moves.innerHTML = 0
                 Timer.innerHTML = 0
+                ManageLogs.resetMoves()
                 this.Target = []
                 startButton.innerHTML = "Start"
                 startButton.style.backgroundColor = "Green"
                 popup.style.display = "flex"
-
+                ManageLogs.write("Game Over")
                 console.log("Game is OVER")
                 break
 
@@ -70,6 +72,8 @@ export class gameEngine {
                 this.state = 'GAME'
                 startButton.innerHTML = "QUIT"
                 startButton.style.backgroundColor = "red"
+                ManageLogs.resetMoves()
+                ManageLogs.write("New Game Started")
                 console.log("Game is ON")
 
                 //create a new instance of Board 
@@ -95,6 +99,7 @@ export class gameEngine {
                             Y = parseInt(LetterCoordinate.indexOf(Y));
                             this.knight.move([X, Y])
                             Moves.innerHTML -= 1
+                            ManageLogs.add(event.target.id)
 
                             // If the knight reaches the target, select a new target
                             if (this.knight.Xcoord === this.Target[0] && this.knight.Ycoord === this.Target[1]) {
@@ -108,7 +113,8 @@ export class gameEngine {
                                 
                                 // Find how many moves are needed to reach the new target
                                 Moves.innerHTML = this.knight.findTarget(newTarget)
-                                this.time += parseInt(Moves.innerHTML) * 3
+                                this.time += parseInt(Moves.innerHTML) * 2
+                                Points.innerHTML = parseInt(Points.innerHTML) + 1
 
                                 // Display the new target in the board
                                 this.board.getHTML(newTarget).classList.add('target')

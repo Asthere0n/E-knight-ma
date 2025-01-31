@@ -26,6 +26,7 @@
     justify-content: center;
     align-items: center;
     z-index: 5;
+    opacity: 0;
 }
 #popup-content{
     background-color: white;
@@ -156,7 +157,6 @@
     display: flex;
     flex-direction: column;
 }
-
 #infoPanel{
     height: 10rem;
     display: grid;
@@ -188,13 +188,25 @@
     border-radius: 1rem;
     background-color: white;
     box-shadow: 1px 1px 4px gray inset;
-    p{
-        font-size: 3 rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    #moves{
         margin: 10px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
     #log{
-        flex-grow: 1;
+        display: flex;
+        margin: 10px;
+        width: 100%;
+        overflow: hidden;
+        flex-wrap: wrap;
+        .previousMove{
+            padding: 4px;
+            text-align: center;
+            width: 80px;
+            border-radius: 1rem;
+            background-color: green;
+            color: white;
+        }
     }
 }
 
