@@ -6,18 +6,19 @@ export class gameEngine {
     constructor() {
         this.board = new chessBoard()
         this.state = this.changeState("OFF")
+        this.Target
     }
 
     changeState(state) {
         switch (state) {
             // State used when you first access the web. No game is launched yet
             case 'OFF':
-                popup.style.display = "none"
                 this.state = 'OFF'
                 startButton.innerHTML = "Start"
                 startButton.style.backgroundColor = "Green"
                 console.log("Game is OFF")
-                Timer.innerHTML = "0"  // Timer is the ID of the timer in the HTML
+                Timer.innerHTML = "0"
+                this.Target = []
                 break
 
             // State used when the Games ends
@@ -28,6 +29,8 @@ export class gameEngine {
                 while (document.getElementsByClassName('target').length > 0) {
                     document.getElementsByClassName('target')[0].classList.remove('target')
                 }
+                Moves.innerHTML = 0
+                this.Target = []
                 startButton.innerHTML = "Start"
                 startButton.style.backgroundColor = "Green"
                 popup.style.display = "flex"
@@ -38,6 +41,7 @@ export class gameEngine {
 
             // State of game used while the game is running
             case 'GAME':
+                popup.style.display = "none"
                 this.state = 'GAME'
                 startButton.innerHTML = "QUIT"
                 startButton.style.backgroundColor = "red"
@@ -46,10 +50,10 @@ export class gameEngine {
                 //create a new instance of Board 
                 this.board.createBoard()
                 this.knight = new Knight(this.board, this.board.getRandomPosition())
-                let Target = this.knight.selectNewTarget()
-                console.log("New target is: ", Target)
-                Moves.innerHTML = this.knight.findTarget(Target)
-                this.board.getHTML(Target).classList.add('target')
+                this.Target = this.knight.selectNewTarget()
+                console.log("New target is: ", this.Target)
+                Moves.innerHTML = this.knight.findTarget(this.Target)
+                this.board.getHTML(this.Target).classList.add('target')
                 Timer.innerHTML = 30
 
                 // Execute the move method of the knight only if the square is possible
@@ -64,26 +68,26 @@ export class gameEngine {
                             this.knight.move([X, Y])
                             Moves.innerHTML -= 1
 
-                            // If the knight runs out of moves, the game is over
-                            if (Moves.innerHTML <= 0 && !(this.knight.position[0] == Target[0] && this.knight.position[1] == Target[1])) {
-                                this.changeState('GAMEOVER')
-                            }
-
                             // If the knight reaches the target, select a new target
-                            if (this.knight.position[0] === Target[0] && this.knight.position[1] === Target[1]) {
+                            if (this.knight.Xcoord === this.Target[0] && this.knight.Ycoord === this.Target[1]) {
                                 // Select a new target
                                 const newTarget = this.knight.selectNewTarget()
                                 console.log("New target is: ", newTarget)
-                                Target = newTarget
-                                
+                                this.Target = newTarget
+
                                 // Remove the target class from the previous target
                                 document.getElementsByClassName('target')[0].classList.remove('target')
-                                
+
                                 // Find how many moves are needed to reach the new target
                                 Moves.innerHTML = this.knight.findTarget(newTarget)
 
                                 // Display the new target in the board
                                 this.board.getHTML(newTarget).classList.add('target')
+                            }
+
+                            // If the knight runs out of moves, the game is over
+                            if (Moves.innerHTML <= 0 && !(this.knight.position[0] == this.Target[0] && this.knight.position[1] == this.Target[1])) {
+                                this.changeState('GAMEOVER')
                             }
                         }
                     })

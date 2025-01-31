@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if(YesButton){
     YesButton.addEventListener('click', ()=>{
         console.log("Play Again")
-        Game.changeState("OFF")
+        Game.changeState("GAME")
     })}
     
 })
